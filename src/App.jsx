@@ -7,6 +7,7 @@ import InstitutionsPage from './Pages/InstitutionsPage'
 import OrdersPage from './Pages/orders-page'
 import { PlansPage } from './Pages/plans-page'
 import SubscriptionsPage from './Pages/subscriptions-page'
+import TradesPage  from './Pages/trades-page'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
           <Route path='orders' element={<OrdersPage/>} />
           <Route path='plans' element={<PlansPage/>} />
           <Route path='subscriptions' element={<SubscriptionsPage/>} />
+          <Route path='trades' element={<TradesPage/>} />
         </Route>
         <Route path='login' element={<h1>login</h1>} />
         <Route path="*" element={<Layout />} />

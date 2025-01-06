@@ -4,9 +4,14 @@
 @tailwind components;
 @tailwind utilities;
 :root {
-    --color-text: #91916B;
+	--background: #000000;
+	--primary: #f97316;
+	--text: #d1d5db;
+	--text-secondary: #9ca3af;
+	--border: #404040;
+	--hover: #262626;
+	--active: #171717;
   }
-  
 @layer base {
 	html {
 		font-family: 'Inter', sans-serif;

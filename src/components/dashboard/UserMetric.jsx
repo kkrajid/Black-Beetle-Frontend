@@ -3,14 +3,14 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recha
 
 const UserMetric = () => {
     const data = [
-        { name: 'B2B Users', value: 20, color: '#D7B257' },  // Primary color
-        { name: 'B2B Admins', value: 21, color: '#C9A64E' }, // Slightly darker shade of primary
-        { name: 'B2C Users', value: 40, color: '#B89A45' }   // Even darker shade of primary
+        { name: 'B2B Users', value: 20, color: '#f97316' },    // Orange-500
+        { name: 'B2B Admins', value: 21, color: '#ea580c' },  // Orange-600
+        { name: 'B2C Users', value: 40, color: '#c2410c' }    // Orange-700
     ];
 
     return (
-        <div className="w-[20rem] h-[22rem] bg-background border border-border text-text p-4 rounded-sm shadow-[0_0_10px_rgba(215,178,87,0.1)] flex flex-col">
-            <strong className="text-primary font-medium">User Distribution</strong>
+        <div className="w-[20rem] h-[22rem] bg-black border border-neutral-800 text-gray-300 p-4 rounded-sm shadow-[0_0_10px_rgba(0,0,0,0.3)] flex flex-col">
+            <strong className="text-orange-500 font-medium">User Distribution</strong>
             <div className="mt-3 w-full flex-1 text-xs">
                 <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -27,23 +27,23 @@ const UserMetric = () => {
                                 <Cell key={`cell-${index}`} fill={entry.color} />
                             ))}
                         </Pie>
-                        <Tooltip 
-                            contentStyle={{ 
-                                backgroundColor: '#000000', 
-                                border: '1px solid rgba(215, 178, 87, 0.2)', 
-                                borderRadius: '4px' 
+                        <Tooltip
+                            contentStyle={{
+                                backgroundColor: '#000000',
+                                border: '1px solid #404040',
+                                borderRadius: '4px'
                             }}
-                            itemStyle={{ color: '#91916B' }}
-                            labelStyle={{ color: '#91916B' }}
+                            itemStyle={{ color: '#d1d5db' }}
+                            labelStyle={{ color: '#d1d5db' }}
                         />
-                        <Legend 
-                            layout="horizontal" 
-                            verticalAlign="bottom" 
+                        <Legend
+                            layout="horizontal"
+                            verticalAlign="bottom"
                             align="center"
                             wrapperStyle={{
                                 paddingTop: '2rem'
                             }}
-                            formatter={(value, entry, index) => <span style={{ color: '#91916B' }}>{value}</span>}
+                            formatter={(value, entry, index) => <span style={{ color: '#d1d5db' }}>{value}</span>}
                         />
                     </PieChart>
                 </ResponsiveContainer>
@@ -53,4 +53,3 @@ const UserMetric = () => {
 }
 
 export default UserMetric;
-

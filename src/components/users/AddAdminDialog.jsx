@@ -1,10 +1,9 @@
 import React, { useState, memo } from 'react';
 import { Shield, X } from 'lucide-react';
 
-// Memoize the FormField component
 const FormField = memo(({ label, name, type = "text", required = false, textarea = false, value, onChange }) => (
     <div className="space-y-2">
-        <label htmlFor={name} className="block text-sm font-medium text-[#D7B257]">
+        <label htmlFor={name} className="block text-sm font-medium text-orange-500">
             {label} {required && <span className="text-red-500">*</span>}
         </label>
         {textarea ? (
@@ -14,7 +13,7 @@ const FormField = memo(({ label, name, type = "text", required = false, textarea
                 value={value}
                 onChange={onChange}
                 required={required}
-                className="w-full min-h-[80px] bg-black resize-none rounded-md border border-[#D7B257]/30 shadow-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#D7B257] text-[#D7B257]"
+                className="w-full min-h-[80px] bg-black resize-none rounded-md border border-orange-500/30 shadow-sm px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 text-orange-500"
             />
         ) : (
             <input
@@ -24,17 +23,16 @@ const FormField = memo(({ label, name, type = "text", required = false, textarea
                 value={value}
                 onChange={onChange}
                 required={required}
-                className="w-full h-9 bg-black rounded-md border border-[#D7B257]/30 shadow-sm px-3 focus:outline-none active:outline-none text-[#D7B257]"
+                className="w-full h-9 bg-black rounded-md border border-orange-500/30 shadow-sm px-3 focus:outline-none active:outline-none text-orange-500"
             />
         )}
     </div>
 ));
 
-// Memoize the FormSection component
 const FormSection = memo(({ title, children }) => (
-    <div className="bg-black rounded-lg shadow-sm border border-[#D7B257]/20 overflow-hidden">
-        <div className="px-6 py-4 border-b border-[#D7B257]/20">
-            <h3 className="text-lg font-semibold text-[#D7B257]">{title}</h3>
+    <div className="bg-black rounded-lg shadow-sm border border-orange-500/20 overflow-hidden">
+        <div className="px-6 py-4 border-b border-orange-500/20">
+            <h3 className="text-lg font-semibold text-orange-500">{title}</h3>
         </div>
         <div className="p-6 space-y-4">
             {children}
@@ -98,7 +96,7 @@ const AddAdminDialog = () => {
                 institution_address: '',
                 institution_contact_email: '',
                 institution_contact_phone: ''
-            })
+            });
             setIsOpen(false);
         } catch (err) {
             setError(err.message);
@@ -119,7 +117,7 @@ const AddAdminDialog = () => {
         <>
             <button
                 onClick={() => setIsOpen(true)}
-                className="inline-flex items-center px-4 py-2 bg-[#D7B257] text-white text-sm font-medium rounded-lg hover:bg-[#D7B257]/80 focus:outline-none focus:ring-2 focus:ring-[#D7B257]"
+                className="inline-flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500"
             >
                 <Shield className="mr-2 h-4 w-4" />
                 Add B2B Admin
@@ -138,7 +136,7 @@ const AddAdminDialog = () => {
                             <div className="absolute top-0 right-0 pt-4 pr-4">
                                 <button
                                     type="button"
-                                    className="text-[#D7B257]/60 hover:text-[#D7B257]/80 focus:outline-none"
+                                    className="text-orange-500/60 hover:text-orange-500/80 focus:outline-none"
                                     onClick={() => !loading && setIsOpen(false)}
                                 >
                                     <X className="h-6 w-6" />
@@ -147,8 +145,8 @@ const AddAdminDialog = () => {
 
                             <div className="p-6">
                                 <div className="flex items-center gap-2 mb-6">
-                                    <Shield className="h-6 w-6 text-[#D7B257]" />
-                                    <h2 className="text-xl font-semibold text-[#D7B257]">Add New B2B Admin</h2>
+                                    <Shield className="h-6 w-6 text-orange-500" />
+                                    <h2 className="text-xl font-semibold text-orange-500">Add New B2B Admin</h2>
                                 </div>
 
                                 {error && (
@@ -262,19 +260,19 @@ const AddAdminDialog = () => {
                                         </FormSection>
                                     </div>
 
-                                    <div className="flex justify-end gap-3 py-4 px-6 bg-[#D7B257]/10 border-t border-[#D7B257]/20 mt-6 -mx-6">
+                                    <div className="flex justify-end gap-3 py-4 px-6 bg-orange-500/10 border-t border-orange-500/20 mt-6 -mx-6">
                                         <button
                                             type="button"
                                             onClick={() => !loading && setIsOpen(false)}
                                             disabled={loading}
-                                            className="px-4 py-2 text-sm font-medium text-[#D7B257] bg-black border border-[#D7B257]/30 rounded-lg hover:bg-[#D7B257]/10 focus:outline-none focus:ring-2 focus:ring-[#D7B257] disabled:opacity-50"
+                                            className="px-4 py-2 text-sm font-medium text-orange-500 bg-black border border-orange-500/30 rounded-lg hover:bg-orange-500/10 focus:outline-none focus:ring-2 focus:ring-orange-500 disabled:opacity-50"
                                         >
                                             Cancel
                                         </button>
                                         <button
                                             type="submit"
                                             disabled={loading}
-                                            className="px-4 py-2 text-sm font-medium text-white bg-[#D7B257] rounded-lg hover:bg-[#D7B257]/80 focus:outline-none focus:ring-2 focus:ring-[#D7B257] disabled:opacity-50"
+                                            className="px-4 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-500 disabled:opacity-50"
                                         >
                                             {loading ? 'Creating...' : 'Create Admin'}
                                         </button>
@@ -290,4 +288,3 @@ const AddAdminDialog = () => {
 };
 
 export default AddAdminDialog;
-

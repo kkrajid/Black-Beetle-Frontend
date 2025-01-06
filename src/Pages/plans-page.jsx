@@ -73,13 +73,13 @@ export function PlansPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
-            <div className="space-y-8 p-8">
+        <div className="flex flex-col gap-4">
+            <div className="space-y-4 ">
                 <PlanStats />
                 <div className="flex justify-end items-center">
                     <button
                         onClick={() => setIsAddModalOpen(true)}
-                        className="px-4 py-2 bg-sky-600 text-white rounded-md"
+                        className="px-4 py-2 bg-orange-500 text-white rounded-md"
                     >
                         Add New Plan
                     </button>

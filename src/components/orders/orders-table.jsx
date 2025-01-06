@@ -146,73 +146,69 @@ const getStatusColor = (status) => {
     'COMPLETED': 'bg-green-500/20 text-green-500',
     'FAILED': 'bg-red-500/20 text-red-500',
     'REFUNDED': 'bg-gray-500/20 text-gray-500'
-  }
-  return colors[status] || 'bg-gray-500/20 text-gray-500'
-}
+  };
+  return colors[status] || 'bg-gray-500/20 text-gray-500';
+};
 
-const ITEMS_PER_PAGE = 5
+const ITEMS_PER_PAGE = 5;
 
 const OrdersTable = () => {
-  const [selectedOrder, setSelectedOrder] = useState(null)
-  const [dropdownOpen, setDropdownOpen] = useState(null)
-  const [currentPage, setCurrentPage] = useState(1)
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(mockOrders.length / ITEMS_PER_PAGE)
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE
-  const endIndex = startIndex + ITEMS_PER_PAGE
-  const currentOrders = mockOrders.slice(startIndex, endIndex)
+  const totalPages = Math.ceil(mockOrders.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const currentOrders = mockOrders.slice(startIndex, endIndex);
 
   const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1)
-    }
-  }
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
 
   const handlePrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1)
-    }
-  }
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
 
   return (
-    <Card className="w-full bg-background border-border shadow-[0_0_10px_rgba(215,178,87,0.1)]">
+    <Card className="w-full bg-black border-neutral-800 shadow-[0_0_10px_rgba(0,0,0,0.3)]">
       <CardHeader>
-        <CardTitle className="text-primary font-medium">Orders</CardTitle>
+        <CardTitle className="text-orange-500 font-medium">Orders</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="overflow-x-auto">
-          <table className="w-full bg-background">
-            <thead className="bg-hover [&_th]:border-b [&_th]:border-border last:[&_th]:border-r-0">
+          <table className="w-full bg-black">
+            <thead className="bg-neutral-800 [&_th]:border-b [&_th]:border-neutral-700 last:[&_th]:border-r-0">
               <tr>
-                <th className="px-6 py-3 text-left text-sm font-medium text-primary">Order ID</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-primary">User</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-primary">Plan</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-primary">Amount</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-primary">Status</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-primary">Date</th>
-                <th className="px-4 py-3 text-right text-sm font-medium text-primary">Actions</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-orange-500">Order ID</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-orange-500">User</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-orange-500">Plan</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-orange-500">Amount</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-orange-500">Status</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-orange-500">Date</th>
+                <th className="px-4 py-3 text-right text-sm font-medium text-orange-500">Actions</th>
               </tr>
             </thead>
             <tbody>
               {currentOrders.map((order) => (
-                <tr key={order.id} className="[&_tr]:border-b [&_tr]:border-border [&_td]:border-border last:[&_td]:border-r-0 hover:bg-hover">
-                  <td className="px-6 py-3 font-medium text-primary">
+                <tr key={order.id} className="[&_tr]:border-b [&_tr]:border-neutral-800 [&_td]:border-neutral-800 last:[&_td]:border-r-0 hover:bg-neutral-800/50">
+                  <td className="px-6 py-3 font-medium text-orange-500">
                     {order.razorpay_order_id}
                   </td>
                   <td className="px-6 py-3">
                     <div>
-                      <div className="font-medium text-primary">{order.user.name}</div>
-                      <div className="text-sm text-text/60">{order.user.phone}</div>
+                      <div className="font-medium text-orange-500">{order.user.name}</div>
+                      <div className="text-sm text-gray-300/60">{order.user.phone}</div>
                     </div>
                   </td>
                   <td className="px-6 py-3">
                     <div>
-                      <div className="font-medium text-primary">{order.plan.name}</div>
-                      <div className="text-sm text-text/60">{order.plan.code}</div>
+                      <div className="font-medium text-orange-500">{order.plan.name}</div>
+                      <div className="text-sm text-gray-300/60">{order.plan.code}</div>
                     </div>
                   </td>
                   <td className="px-6 py-3">
-                    <div className="flex items-center text-text">
+                    <div className="flex items-center text-gray-300">
                       <IndianRupee className="h-4 w-4 mr-1" />
                       {order.amount.toLocaleString()}
                     </div>
@@ -222,7 +218,7 @@ const OrdersTable = () => {
                       {order.status}
                     </span>
                   </td>
-                  <td className="px-6 py-3 text-text">
+                  <td className="px-6 py-3 text-gray-300">
                     {new Date(order.created_at).toLocaleDateString()}
                   </td>
                   <td className="px-4 py-3 text-right">
@@ -231,19 +227,19 @@ const OrdersTable = () => {
                         variant="ghost"
                         size="sm"
                         onClick={() => setDropdownOpen(dropdownOpen === order.id ? null : order.id)}
-                        className="text-primary hover:text-primary/80 hover:bg-hover"
+                        className="text-orange-500 hover:text-orange-400 hover:bg-neutral-800"
                       >
                         <MoreHorizontal className="h-4 w-4" />
                       </Button>
                       {dropdownOpen === order.id && (
-                        <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-background border border-border z-10">
+                        <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-black border border-neutral-800 z-10">
                           <div className="py-1">
                             <button
                               onClick={() => {
-                                setSelectedOrder(order)
-                                setDropdownOpen(null)
+                                setSelectedOrder(order);
+                                setDropdownOpen(null);
                               }}
-                              className="flex items-center w-full px-4 py-2 text-sm text-text hover:bg-hover"
+                              className="flex items-center w-full px-4 py-2 text-sm text-gray-300 hover:bg-neutral-800"
                             >
                               <Eye className="mr-2 h-4 w-4" />
                               View Details
@@ -260,7 +256,7 @@ const OrdersTable = () => {
         </div>
 
         <div className="flex items-center justify-between mt-4">
-          <div className="text-sm text-text/60">
+          <div className="text-sm text-gray-300/60">
             Page {currentPage} of {totalPages}
           </div>
           <div className="flex gap-2">
@@ -269,9 +265,8 @@ const OrdersTable = () => {
               size="sm"
               onClick={handlePrevPage}
               disabled={currentPage === 1}
-              className="border-border text-primary hover:bg-hover"
+              className="border-neutral-800 text-orange-500 hover:bg-neutral-800"
             >
-              {/* <ChevronLeft className="h-4 w-4 mr-1" /> */}
               Previous
             </Button>
             <Button
@@ -279,10 +274,9 @@ const OrdersTable = () => {
               size="sm"
               onClick={handleNextPage}
               disabled={currentPage === totalPages}
-              className="border-border text-primary hover:bg-hover"
+              className="border-neutral-800 text-orange-500 hover:bg-neutral-800"
             >
               Next
-              {/* <ChevronRight className="h-4 w-4 ml-1" /> */}
             </Button>
           </div>
         </div>
@@ -295,8 +289,7 @@ const OrdersTable = () => {
         />
       )}
     </Card>
-  )
-}
+  );
+};
 
-export default OrdersTable
-
+export default OrdersTable;

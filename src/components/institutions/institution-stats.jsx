@@ -1,8 +1,7 @@
 import React from 'react';
 import { Building2, Users, UserCheck } from 'lucide-react';
 
-
-const InstitutionStats= ({ stats }) => {
+const InstitutionStats = ({ stats }) => {
     const statsConfig = [
         {
             title: "Total Institutions",
@@ -23,7 +22,7 @@ const InstitutionStats= ({ stats }) => {
 
     function BoxWrapper({ children }) {
         return (
-            <div className="bg-background rounded-sm flex-1 p-4 border border-border text-text flex items-center shadow-[0_0_10px_rgba(215,178,87,0.1)]">
+            <div className="bg-black rounded-sm flex-1 p-4 border border-neutral-800 text-gray-300 flex items-center shadow-[0_0_10px_rgba(0,0,0,0.3)]">
                 {children}
             </div>
         );
@@ -33,13 +32,13 @@ const InstitutionStats= ({ stats }) => {
         <div className='flex gap-4 w-full'>
             {statsConfig.map((stat, index) => (
                 <BoxWrapper key={index}>
-                    <div className="rounded-full bg-hover w-12 h-12 flex items-center justify-center">
-                        <stat.icon className='text-2xl text-primary' />
+                    <div className="rounded-full bg-neutral-800 w-12 h-12 flex items-center justify-center">
+                        <stat.icon className='text-2xl text-orange-500' />
                     </div>
                     <div className='pl-4'>
-                        <span className='text-sm text-text/60 font-light'>{stat.title}</span>
+                        <span className='text-sm text-gray-300/60 font-light'>{stat.title}</span>
                         <div className='flex items-center'>
-                            <strong className='text-xl text-primary font-semibold'>{stat.value}</strong>
+                            <strong className='text-xl text-orange-500 font-semibold'>{stat.value}</strong>
                         </div>
                     </div>
                 </BoxWrapper>
@@ -49,4 +48,3 @@ const InstitutionStats= ({ stats }) => {
 };
 
 export default InstitutionStats;
-

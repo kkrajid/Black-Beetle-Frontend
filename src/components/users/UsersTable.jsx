@@ -37,8 +37,6 @@ export function UsersTable({ searchTerm, userType, status }) {
     
     try {
       const response = await updateUserAction(userId, action)
-      console.log('Toggle response:', response)
-      
       if (response.status === 'success') {
         setUsers(users.map(user => {
           if (user.id === userId) {
@@ -58,7 +56,6 @@ export function UsersTable({ searchTerm, userType, status }) {
         loadUsers()
       }
     } catch (error) {
-      console.error('Toggle error:', error)
       toast.error(`Failed to update user. Please try again.`)
     } finally {
       setUpdatingUsers(prev => ({ ...prev, [userId]: false }))
@@ -75,35 +72,27 @@ export function UsersTable({ searchTerm, userType, status }) {
     return colors[status] || 'bg-gray-500/20 text-gray-500'
   }
 
-  if (isLoading) {
-    return <div className="text-primary">Loading...</div>
-  }
-
-  if (error) {
-    return <div className="text-red-500">{error}</div>
-  }
-
-  if (!users || users.length === 0) {
-    return <div className="text-text/60">No users found.</div>
-  }
+  if (isLoading) return <div className="text-orange-500">Loading...</div>
+  if (error) return <div className="text-red-500">{error}</div>
+  if (!users?.length) return <div className="text-gray-300/60">No users found.</div>
 
   return (
-    <Card className="w-full bg-background border-border shadow-[0_0_10px_rgba(215,178,87,0.1)]">
+    <Card className="w-full bg-black border-orange-500/20 shadow-[0_0_10px_rgba(0,0,0,0.3)]">
       <CardHeader>
-        <CardTitle className="text-primary font-medium">Users</CardTitle>
+        <CardTitle className="text-orange-500 font-medium">Users</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="overflow-x-auto">
-          <table className="w-full bg-background">
-            <thead className="bg-hover [&_th]:border-b [&_th]:border-border last:[&_th]:border-r-0">
+          <table className="w-full bg-black">
+            <thead className="bg-neutral-800 [&_th]:border-b [&_th]:border-orange-500/20 last:[&_th]:border-r-0">
               <tr>
-                <th className="px-6 py-3 text-left text-sm font-medium text-primary">Name</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-primary">Type</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-primary">Institution</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-primary">Mobile</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-primary">Verification</th>
-                <th className="px-6 py-3 text-left text-sm font-medium text-primary">Status</th>
-                <th className="px-4 py-3 text-right text-sm font-medium text-primary">Actions</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-orange-500">Name</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-orange-500">Type</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-orange-500">Institution</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-orange-500">Mobile</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-orange-500">Verification</th>
+                <th className="px-6 py-3 text-left text-sm font-medium text-orange-500">Status</th>
+                <th className="px-4 py-3 text-right text-sm font-medium text-orange-500">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -125,17 +114,17 @@ export function UsersTable({ searchTerm, userType, status }) {
                 const isUpdating = updatingUsers[id] || false;
 
                 return (
-                  <tr key={id} className={`[&_tr]:border-b [&_tr]:border-border [&_td]:border-border last:[&_td]:border-r-0 ${isUpdating ? 'opacity-50' : ''}`}>
+                  <tr key={id} className={`[&_tr]:border-b [&_tr]:border-orange-500/20 [&_td]:border-orange-500/20 last:[&_td]:border-r-0 ${isUpdating ? 'opacity-50' : ''}`}>
                     <td className="px-6 py-3">
                       <div className="flex items-center gap-2">
                         {user_type === "B2B_ADMIN" ? (
-                          <Shield className="h-4 w-4 text-primary" />
+                          <Shield className="h-4 w-4 text-orange-500" />
                         ) : (
-                          <User className="h-4 w-4 text-text/60" />
+                          <User className="h-4 w-4 text-gray-300/60" />
                         )}
                         <div>
-                          <div className="text-sm font-medium text-primary">{fullName}</div>
-                          <div className="text-sm text-text/60">{email}</div>
+                          <div className="text-sm font-medium text-orange-500">{fullName}</div>
+                          <div className="text-sm text-gray-300/60">{email}</div>
                         </div>
                       </div>
                     </td>
@@ -145,10 +134,10 @@ export function UsersTable({ searchTerm, userType, status }) {
                       </span>
                     </td>
                     <td className="px-6 py-3">
-                      <span className="text-sm text-text">{institutionName}</span>
+                      <span className="text-sm text-gray-300">{institutionName}</span>
                     </td>
                     <td className="px-6 py-3">
-                      <span className="text-sm text-text">{phone_number}</span>
+                      <span className="text-sm text-gray-300">{phone_number}</span>
                     </td>
                     <td className="px-6 py-3">
                       <label className="relative inline-flex items-center cursor-pointer">
@@ -159,7 +148,7 @@ export function UsersTable({ searchTerm, userType, status }) {
                           disabled={isUpdating}
                           onChange={() => handleToggle(id, 'toggle_verified')}
                         />
-                        <div className={`w-11 h-6 bg-hover peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/30 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-primary after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary/50 ${isUpdating ? 'cursor-wait' : 'cursor-pointer'}`}></div>
+                        <div className={`w-11 h-6 bg-neutral-800 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-500/30 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-orange-500 after:border-orange-500/20 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500/50 ${isUpdating ? 'cursor-wait' : 'cursor-pointer'}`}></div>
                       </label>
                     </td>
                     <td className="px-6 py-3">
@@ -171,11 +160,11 @@ export function UsersTable({ searchTerm, userType, status }) {
                           disabled={isUpdating}
                           onChange={() => handleToggle(id, 'toggle_active')}
                         />
-                        <div className={`w-11 h-6 bg-hover peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/30 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-primary after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary/50 ${isUpdating ? 'cursor-wait' : 'cursor-pointer'}`}></div>
+                        <div className={`w-11 h-6 bg-neutral-800 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-500/30 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-orange-500 after:border-orange-500/20 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500/50 ${isUpdating ? 'cursor-wait' : 'cursor-pointer'}`}></div>
                       </label>
                     </td>
                     <td className="px-4 py-3 text-right">
-                      <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80 hover:bg-hover">
+                      <Button variant="ghost" size="sm" className="text-orange-500 hover:text-orange-400 hover:bg-neutral-800">
                         <MoreHorizontal className="h-4 w-4" />
                       </Button>
                     </td>
@@ -187,7 +176,7 @@ export function UsersTable({ searchTerm, userType, status }) {
         </div>
 
         <div className="flex items-center justify-between mt-4">
-          <div className="text-sm text-text/60">
+          <div className="text-sm text-gray-300/60">
             Showing {((currentPage - 1) * 5) + 1} to {Math.min(currentPage * 5, users.length)} of {users.length} users
           </div>
           <div className="flex gap-2">
@@ -196,7 +185,7 @@ export function UsersTable({ searchTerm, userType, status }) {
               size="sm"
               onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
-              className="border-border text-primary hover:bg-hover"
+              className="border-orange-500/20 text-orange-500 hover:bg-neutral-800"
             >
               Previous
             </Button>
@@ -205,7 +194,7 @@ export function UsersTable({ searchTerm, userType, status }) {
               size="sm"
               onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="border-border text-primary hover:bg-hover"
+              className="border-orange-500/20 text-orange-500 hover:bg-neutral-800"
             >
               Next
             </Button>
@@ -215,4 +204,3 @@ export function UsersTable({ searchTerm, userType, status }) {
     </Card>
   )
 }
-

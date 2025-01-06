@@ -22,9 +22,9 @@ const data = [
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-background p-2 border border-border rounded-md shadow-sm">
-        <p className="text-sm font-medium text-primary">{label}</p>
-        <p className="text-sm text-text">Trades: {payload[0].value}</p>
+      <div className="bg-black p-2 border border-neutral-800 rounded-md shadow-sm">
+        <p className="text-sm font-medium text-orange-500">{label}</p>
+        <p className="text-sm text-gray-300">Trades: {payload[0].value}</p>
       </div>
     );
   }
@@ -33,7 +33,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 function BoxWrapper({ children }) {
   return (
-    <div className="bg-background rounded-sm flex-1 p-4 border border-border text-text flex flex-col shadow-[0_0_10px_rgba(215,178,87,0.1)]">
+    <div className="bg-black rounded-sm flex-1 p-4 border border-neutral-800 text-gray-300 flex flex-col shadow-[0_0_10px_rgba(0,0,0,0.3)]">
       {children}
     </div>
   );
@@ -42,7 +42,7 @@ function BoxWrapper({ children }) {
 const TradesCharts = () => {
   return (
     <BoxWrapper>
-      <strong className="text-primary font-medium">Trading Activity</strong>
+      <strong className="text-orange-500 font-medium">Trading Activity</strong>
       <div className="mt-3 w-full flex-1 text-xs">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart 
@@ -51,26 +51,26 @@ const TradesCharts = () => {
           >
             <defs>
               <linearGradient id="colorTrades" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#D7B257" stopOpacity={1}/>
-                <stop offset="100%" stopColor="#D7B257" stopOpacity={0.6}/>
+                <stop offset="0%" stopColor="#f97316" stopOpacity={1}/>
+                <stop offset="100%" stopColor="#f97316" stopOpacity={0.6}/>
               </linearGradient>
             </defs>
             <CartesianGrid 
               strokeDasharray="3 3" 
               horizontal={true}
               vertical={false}
-              stroke="#91916B"
+              stroke="#525252"
               opacity={0.1}
             />
             <XAxis 
               dataKey="date"
-              tick={{ fill: '#91916B' }}
-              axisLine={{ stroke: '#91916B', opacity: 0.2 }}
+              tick={{ fill: '#d1d5db' }}
+              axisLine={{ stroke: '#525252', opacity: 0.2 }}
               tickFormatter={(value) => value}
             />
             <YAxis 
-              tick={{ fill: '#91916B' }}
-              axisLine={{ stroke: '#91916B', opacity: 0.2 }}
+              tick={{ fill: '#d1d5db' }}
+              axisLine={{ stroke: '#525252', opacity: 0.2 }}
               width={60}
             />
             <Tooltip content={<CustomTooltip />} />
@@ -83,7 +83,7 @@ const TradesCharts = () => {
               <LabelList 
                 dataKey="trades" 
                 position="top" 
-                fill="#91916B"
+                fill="#d1d5db"
                 offset={10}
               />
             </Bar>
@@ -95,4 +95,3 @@ const TradesCharts = () => {
 };
 
 export default TradesCharts;
-

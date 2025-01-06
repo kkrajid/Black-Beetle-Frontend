@@ -54,51 +54,47 @@ const RecentTrades = () => {
 
     const getCurrentPageData = () => {
         const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        return mockTrades.slice(startIndex, endIndex);
+        return mockTrades.slice(startIndex, startIndex + itemsPerPage);
     };
 
-    const getStatusColor = (status) => {
-        const colors = {
-            ACTIVE: 'bg-green-500/20 text-green-500',
-            PENDING: 'bg-yellow-500/20 text-yellow-500',
-            COMPLETED: 'bg-blue-500/20 text-blue-500',
-            CANCELLED: 'bg-red-500/20 text-red-500'
-        };
-        return colors[status] || 'bg-gray-500/20 text-gray-500';
-    };
+    const getStatusColor = (status) => ({
+        ACTIVE: 'bg-green-500/20 text-green-500',
+        PENDING: 'bg-yellow-500/20 text-yellow-500',
+        COMPLETED: 'bg-blue-500/20 text-blue-500',
+        CANCELLED: 'bg-red-500/20 text-red-500'
+    }[status] || 'bg-gray-500/20 text-gray-500');
 
     return (
-        <Card className="w-full bg-background border-border shadow-[0_0_10px_rgba(215,178,87,0.1)]">
+        <Card className="w-full bg-black border-neutral-800 shadow-[0_0_10px_rgba(0,0,0,0.3)]">
             <CardHeader>
-                <CardTitle className="text-primary font-medium">Recent Trades</CardTitle>
+                <CardTitle className="text-orange-500 font-medium">Recent Trades</CardTitle>
             </CardHeader>
             <CardContent>
                 <div className="overflow-x-auto">
-                    <table className="w-full bg-background">
-                        <thead className="bg-hover [&_th]:border-b [&_th]:border-border last:[&_th]:border-r-0">
+                    <table className="w-full bg-black">
+                        <thead className="bg-neutral-800 [&_th]:border-b [&_th]:border-neutral-700 last:[&_th]:border-r-0">
                             <tr>
-                                <th className="px-6 py-3 text-left text-sm font-medium text-primary">Stock</th>
-                                <th className="px-6 py-3 text-left text-sm font-medium text-primary">Type</th>
-                                <th className="px-6 py-3 text-left text-sm font-medium text-primary">Segment</th>
-                                <th className="px-6 py-3 text-left text-sm font-medium text-primary">Status</th>
-                                <th className="px-4 py-3 text-right text-sm font-medium text-primary">Actions</th>
+                                <th className="px-6 py-3 text-left text-sm font-medium text-orange-500">Stock</th>
+                                <th className="px-6 py-3 text-left text-sm font-medium text-orange-500">Type</th>
+                                <th className="px-6 py-3 text-left text-sm font-medium text-orange-500">Segment</th>
+                                <th className="px-6 py-3 text-left text-sm font-medium text-orange-500">Status</th>
+                                <th className="px-4 py-3 text-right text-sm font-medium text-orange-500">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {getCurrentPageData().map((trade) => (
-                                <tr key={trade.id} className="[&_tr]:border-b [&_tr]:border-border [&_td]:border-border last:[&_td]:border-r-0">
+                                <tr key={trade.id} className="[&_tr]:border-b [&_tr]:border-neutral-800 [&_td]:border-neutral-800 last:[&_td]:border-r-0">
                                     <td className="px-6 py-3">
                                         <div>
-                                            <div className="text-sm font-medium text-primary">{trade.company.stock_index}</div>
-                                            <div className="text-sm text-text/60">{trade.company.name}</div>
+                                            <div className="text-sm font-medium text-orange-500">{trade.company.stock_index}</div>
+                                            <div className="text-sm text-gray-300/60">{trade.company.name}</div>
                                         </div>
                                     </td>
                                     <td className="px-6 py-3">
-                                        <span className="text-sm text-text">{trade.trade_type.name}</span>
+                                        <span className="text-sm text-gray-300">{trade.trade_type.name}</span>
                                     </td>
                                     <td className="px-6 py-3">
-                                        <span className="text-sm text-text">{trade.segment.name}</span>
+                                        <span className="text-sm text-gray-300">{trade.segment.name}</span>
                                     </td>
                                     <td className="px-6 py-3">
                                         <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(trade.status)}`}>
@@ -106,7 +102,7 @@ const RecentTrades = () => {
                                         </span>
                                     </td>
                                     <td className="px-4 py-3 text-right">
-                                        <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80 hover:bg-hover">
+                                        <Button variant="ghost" size="sm" className="text-orange-500 hover:text-orange-400 hover:bg-neutral-800">
                                             <MoreHorizontal className="h-4 w-4" />
                                         </Button>
                                     </td>
@@ -117,7 +113,7 @@ const RecentTrades = () => {
                 </div>
 
                 <div className="flex items-center justify-between mt-4">
-                    <div className="text-sm text-text/60">
+                    <div className="text-sm text-gray-300/60">
                         Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, mockTrades.length)} of {mockTrades.length} trades
                     </div>
                     <div className="flex gap-2">
@@ -126,7 +122,7 @@ const RecentTrades = () => {
                             size="sm"
                             onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                             disabled={currentPage === 1}
-                            className="border-border text-primary hover:bg-hover"
+                            className="border-neutral-800 text-orange-500 hover:bg-neutral-800"
                         >
                             Previous
                         </Button>
@@ -135,7 +131,7 @@ const RecentTrades = () => {
                             size="sm"
                             onClick={() => setCurrentPage(prev => Math.min(prev + 1, Math.ceil(mockTrades.length / itemsPerPage)))}
                             disabled={currentPage === Math.ceil(mockTrades.length / itemsPerPage)}
-                            className="border-border text-primary hover:bg-hover"
+                            className="border-neutral-800 text-orange-500 hover:bg-neutral-800"
                         >
                             Next
                         </Button>
@@ -147,4 +143,3 @@ const RecentTrades = () => {
 };
 
 export default RecentTrades;
-

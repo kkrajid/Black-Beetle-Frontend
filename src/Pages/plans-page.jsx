@@ -84,13 +84,10 @@ export function PlansPage() {
                         Add New Plan
                     </button>
                 </div>
-
                 <div className="space-y-4">
-                    {/* <PlanFilters onFilterChange={setFilters} /> */}
                     <PlanGrid plans={plans} loading={loading} />
                 </div>
             </div>
-
             <AddPlanModal
                 isOpen={isAddModalOpen}
                 onClose={() => setIsAddModalOpen(false)}

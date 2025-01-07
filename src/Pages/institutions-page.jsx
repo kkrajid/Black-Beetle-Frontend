@@ -4,9 +4,6 @@ import { fetchInstitutions, fetchInstitutionStats, fetchInstitutionUsers } from 
 import InstitutionStats from '../components/institutions/institution-stats';
 import { InstitutionFilters } from '../components/institutions/institution-filters';
 import InstitutionsTable from '../components/institutions/institutions-table';
-// import {InstitutionStats} from './institutions/institution-stats';
-// import { InstitutionFilters } from './institutions/institution-filters';
-// import InstitutionsTable from './institutions/institutions-table';
 
 const InstitutionsPage = () => {
     const [searchTerm, setSearchTerm] = useState('');

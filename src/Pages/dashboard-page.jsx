@@ -14,8 +14,6 @@ const Dashboard = () => {
 			</div>
 			<div className="flex-1 w-full">
 			<RecentTrades/>
-				{/* <RecentOrders />
-				<PopularProducts /> */}
 			</div>
 		</div>
     );

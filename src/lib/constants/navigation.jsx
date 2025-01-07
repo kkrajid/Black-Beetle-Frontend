@@ -62,18 +62,18 @@ export const DASHBOARD_SIDEBAR_LINKS = [
         path: '/companies',
         icon: <HiOutlineBriefcase />
     },
-    {
-        key: 'segments',
-        label: 'Segments',
-        path: '/segments',
-        icon: <HiOutlinePuzzle />
-    },
-    {
-        key: 'types',
-        label: 'Types',
-        path: '/types',
-        icon: <HiOutlineTag />
-    }
+    // {
+    //     key: 'segments',
+    //     label: 'Segments',
+    //     path: '/segments',
+    //     icon: <HiOutlinePuzzle />
+    // },
+    // {
+    //     key: 'types',
+    //     label: 'Types',
+    //     path: '/types',
+    //     icon: <HiOutlineTag />
+    // }
 ]
 
 export const DASHBOARD_SIDEBAR_BOTTOM_LINKS = [

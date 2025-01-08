@@ -10,14 +10,6 @@ import {
   LabelList
 } from 'recharts';
 
-const data = [
-  { id: 1, date: 'Jan 2023', trades: 100 },
-  { id: 2, date: 'Feb 2023', trades: 200 },
-  { id: 3, date: 'Mar 2023', trades: 300 },
-  { id: 4, date: 'Apr 2023', trades: 400 },
-  { id: 5, date: 'May 2023', trades: 500 },
-  { id: 6, date: 'Jun 2023', trades: 600 }
-];
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
@@ -39,7 +31,7 @@ function BoxWrapper({ children }) {
   );
 }
 
-const TradesCharts = () => {
+const TradesCharts = ({ data = [] }) => {
   return (
     <BoxWrapper>
       <strong className="text-orange-500 font-medium">Trading Activity</strong>

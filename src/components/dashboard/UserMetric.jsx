@@ -1,12 +1,8 @@
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
-const UserMetric = () => {
-    const data = [
-        { name: 'B2B Users', value: 20, color: '#f97316' },    // Orange-500
-        { name: 'B2B Admins', value: 21, color: '#ea580c' },  // Orange-600
-        { name: 'B2C Users', value: 40, color: '#c2410c' }    // Orange-700
-    ];
+const UserMetric = ({ data = [] }) => {
+  
 
     return (
         <div className="w-[20rem] h-[22rem] bg-black border border-neutral-800 text-gray-300 p-4 rounded-sm shadow-[0_0_10px_rgba(0,0,0,0.3)] flex flex-col">

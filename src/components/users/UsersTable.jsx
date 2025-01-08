@@ -2,79 +2,56 @@ import React, { useState, useEffect } from 'react'
 import { Eye, MoreHorizontal, Shield, User } from 'lucide-react'
 import { Button } from '../ui/Button'
 import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card'
-import { fetchUsers, updateUserAction } from '../../utils/api'
-import { toast } from 'react-hot-toast'
-
-export function UsersTable({ searchTerm, userType, status }) {
-  const [users, setUsers] = useState([])
-  const [currentPage, setCurrentPage] = useState(1)
-  const [totalPages, setTotalPages] = useState(1)
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(null)
-  const [updatingUsers, setUpdatingUsers] = useState({})
-
-  const loadUsers = async () => {
-    setIsLoading(true)
-    setError(null)
-    try {
-      const data = await fetchUsers(currentPage, searchTerm, userType, status)
-      setUsers(data.results)
-      setTotalPages(Math.ceil(data.count / 5))
-    } catch (error) {
-      setError('Failed to fetch users. Please try again later.')
-      toast.error('Failed to fetch users')
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    loadUsers()
-  }, [currentPage, searchTerm, userType, status])
-
-  const handleToggle = async (userId, action) => {
-    setUpdatingUsers(prev => ({ ...prev, [userId]: true }))
-    
-    try {
-      const response = await updateUserAction(userId, action)
-      if (response.status === 'success') {
-        setUsers(users.map(user => {
-          if (user.id === userId) {
-            return {
-              ...user,
-              is_active: action === 'toggle_active' ? response.is_active : user.is_active,
-              is_verified: action === 'toggle_verified' ? response.is_verified : user.is_verified
-            }
-          }
-          return user
-        }))
-        
-        const actionType = action === 'toggle_active' ? 'status' : 'verification'
-        const newState = action === 'toggle_active' ? response.is_active : response.is_verified
-        toast.success(`User ${actionType} ${newState ? 'enabled' : 'disabled'} successfully`)
-        
-        loadUsers()
-      }
-    } catch (error) {
-      toast.error(`Failed to update user. Please try again.`)
-    } finally {
-      setUpdatingUsers(prev => ({ ...prev, [userId]: false }))
-    }
-  }
-
+export function UsersTable({
+  users,
+  isLoading,
+  error,
+  currentPage,
+  totalPages,
+  updatingUsers,
+  onPageChange,
+  onToggle
+}) {
   const getStatusColor = (status) => {
     const colors = {
       ACTIVE: 'bg-green-500/20 text-green-500',
       INACTIVE: 'bg-red-500/20 text-red-500',
       VERIFIED: 'bg-blue-500/20 text-blue-500',
       UNVERIFIED: 'bg-yellow-500/20 text-yellow-500'
-    }
-    return colors[status] || 'bg-gray-500/20 text-gray-500'
-  }
+    };
+    return colors[status] || 'bg-gray-500/20 text-gray-500';
+  };
 
-  if (isLoading) return <div className="text-orange-500">Loading...</div>
-  if (error) return <div className="text-red-500">{error}</div>
-  if (!users?.length) return <div className="text-gray-300/60">No users found.</div>
+  if (isLoading) return (
+    <Card className="w-full bg-black border-orange-500/20 shadow-[0_0_10px_rgba(0,0,0,0.3)]">
+      <CardHeader>
+        <CardTitle className="text-orange-500 font-medium">Users</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          {[...Array(5)].map((_, idx) => (
+            <div key={idx} className="h-16 bg-neutral-800/20 rounded-md animate-pulse" />
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
+
+  if (error) return (
+    <Card className="w-full bg-black border-orange-500/20 shadow-[0_0_10px_rgba(0,0,0,0.3)]">
+      <CardContent className="p-6">
+        <div className="text-red-500 text-center">{error}</div>
+      </CardContent>
+    </Card>
+  );
+
+  if (!users?.length) return (
+    <Card className="w-full bg-black border-orange-500/20 shadow-[0_0_10px_rgba(0,0,0,0.3)]">
+      <CardContent className="p-6">
+        <div className="text-gray-300/60 text-center">No users found.</div>
+      </CardContent>
+    </Card>
+  );
 
   return (
     <Card className="w-full bg-black border-orange-500/20 shadow-[0_0_10px_rgba(0,0,0,0.3)]">
@@ -146,7 +123,7 @@ export function UsersTable({ searchTerm, userType, status }) {
                           className="sr-only peer" 
                           checked={is_verified}
                           disabled={isUpdating}
-                          onChange={() => handleToggle(id, 'toggle_verified')}
+                          onChange={() => onToggle(id, 'toggle_verified')}
                         />
                         <div className={`w-11 h-6 bg-neutral-800 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-500/30 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-orange-500 after:border-orange-500/20 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500/50 ${isUpdating ? 'cursor-wait' : 'cursor-pointer'}`}></div>
                       </label>
@@ -158,7 +135,7 @@ export function UsersTable({ searchTerm, userType, status }) {
                           className="sr-only peer" 
                           checked={is_active}
                           disabled={isUpdating}
-                          onChange={() => handleToggle(id, 'toggle_active')}
+                          onChange={() => onToggle(id, 'toggle_active')}
                         />
                         <div className={`w-11 h-6 bg-neutral-800 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-500/30 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-orange-500 after:border-orange-500/20 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500/50 ${isUpdating ? 'cursor-wait' : 'cursor-pointer'}`}></div>
                       </label>
@@ -183,7 +160,7 @@ export function UsersTable({ searchTerm, userType, status }) {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+              onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
               disabled={currentPage === 1}
               className="border-orange-500/20 text-orange-500 hover:bg-neutral-800"
             >
@@ -192,7 +169,7 @@ export function UsersTable({ searchTerm, userType, status }) {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+              onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
               disabled={currentPage === totalPages}
               className="border-orange-500/20 text-orange-500 hover:bg-neutral-800"
             >
@@ -202,5 +179,5 @@ export function UsersTable({ searchTerm, userType, status }) {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

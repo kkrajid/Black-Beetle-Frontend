@@ -8,6 +8,7 @@ import OrdersPage from './Pages/orders-page'
 import { PlansPage } from './Pages/plans-page'
 import SubscriptionsPage from './Pages/subscriptions-page'
 import TradesPage  from './Pages/trades-page'
+import AdminLogin from './Pages/admin-login-page'
 
 function App() {
 
@@ -24,7 +25,7 @@ function App() {
           <Route path='subscriptions' element={<SubscriptionsPage/>} />
           <Route path='trades' element={<TradesPage/>} />
         </Route>
-        <Route path='login' element={<h1>login</h1>} />
+        <Route path='admin-login' element={<AdminLogin/>} />
         <Route path="*" element={<Layout />} />
         </Routes>
       </Router>

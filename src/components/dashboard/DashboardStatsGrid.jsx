@@ -1,67 +1,56 @@
 import React from 'react';
-import { IoBagHandle, IoWalletOutline, IoAnalyticsSharp, IoPeopleOutline } from 'react-icons/io5';
+import { Box, Card, CardContent, Typography, Grid } from '@mui/material';
+import { Wallet, Users, BarChart2, ShoppingBag } from 'lucide-react';
 
-const DashboardStatsGrid = () => {
-    return (
-        <div className='flex gap-4 w-full'>
-            <BoxWrapper>
-                <div className="rounded-full bg-neutral-800 w-12 h-12 flex items-center justify-center">
-                    <IoBagHandle className='text-2xl text-orange-500' />
-                </div>
-                <div className='pl-4'>
-                    <span className='text-sm text-gray-300/60 font-light'>Total Orders</span>
-                    <div className='flex items-center gap-2'>
-                        <strong className='text-xl text-orange-500 font-semibold'>10,000</strong>
-                        <span className='text-sm text-green-500 pl-2'>+234</span>
-                    </div>
-                </div>
-            </BoxWrapper>
-            <BoxWrapper>
-                <div className="rounded-full bg-neutral-800 w-12 h-12 flex items-center justify-center">
-                    <IoWalletOutline className='text-2xl text-orange-500' />
-                </div>
-                <div className='pl-4'>
-                    <span className='text-sm text-gray-300/60 font-light'>Total Revenue</span>
-                    <div className='flex items-center gap-2'>
-                        <strong className='text-xl text-orange-500 font-semibold'>$50,000</strong>
-                        <span className='text-sm text-green-500 pl-2'>+18%</span>
-                    </div>
-                </div>
-            </BoxWrapper>
-            <BoxWrapper>
-                <div className="rounded-full bg-neutral-800 w-12 h-12 flex items-center justify-center">
-                    <IoAnalyticsSharp className='text-2xl text-orange-500' />
-                </div>
-                <div className='pl-4'>
-                    <span className='text-sm text-gray-300/60 font-light'>Conversion Rate</span>
-                    <div className='flex items-center gap-2'>
-                        <strong className='text-xl text-orange-500 font-semibold'>2.5%</strong>
-                        <span className='text-sm text-red-500 pl-2'>-0.3%</span>
-                    </div>
-                </div>
-            </BoxWrapper>
-            <BoxWrapper>
-                <div className="rounded-full bg-neutral-800 w-12 h-12 flex items-center justify-center">
-                    <IoPeopleOutline className='text-2xl text-orange-500' />
-                </div>
-                <div className='pl-4'>
-                    <span className='text-sm text-gray-300/60 font-light'>Total Customers</span>
-                    <div className='flex items-center gap-2'>
-                        <strong className='text-xl text-orange-500 font-semibold'>5,000</strong>
-                        <span className='text-sm text-green-500 pl-2'>+120</span>
-                    </div>
-                </div>
-            </BoxWrapper>
-        </div>
-    );
-}
+const DashboardStatsGrid = ({ stats }) => {
 
-function BoxWrapper({ children }) {
-    return (
-        <div className="bg-black rounded-sm flex-1 p-4 border border-neutral-800 text-gray-300 flex items-center shadow-[0_0_10px_rgba(0,0,0,0.3)]">
-            {children}
-        </div>
-    );
-}
+
+  return (
+    <Grid container spacing={2}>
+      {stats.map((stat, index) => (
+        <Grid item xs={12} sm={6} lg={3} key={index}>
+          <Card sx={{ 
+            bgcolor: 'black',
+            color: '#d1d5db',
+            border: '1px solid #262626',
+            boxShadow: '0 0 10px rgba(0,0,0,0.3)',
+            '&:hover': { 
+              boxShadow: '0 0 15px rgba(249,115,22,0.2)'
+            }, 
+            transition: 'all 0.3s ease'
+          }}>
+            <CardContent>
+              <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
+                <Box
+                  sx={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    bgcolor: '#f97316',
+                    color: 'black'
+                  }}
+                >
+                  {stat.icon}
+                </Box>
+                <Box display="flex" alignItems="center" color={stat.positive ? '#f97316' : '#ff4444'}>
+                  <Typography variant="body2">{stat.change}</Typography>
+                </Box>
+              </Box>
+              <Typography sx={{ color: '#d1d5db' }} variant="body2">
+                {stat.title}
+              </Typography>
+              <Typography variant="h6" fontWeight="bold" mt={0.5} sx={{ color: '#f97316' }}>
+                {stat.value}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      ))}
+    </Grid>
+  );
+};
 
 export default DashboardStatsGrid;
